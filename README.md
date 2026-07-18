@@ -79,16 +79,6 @@ Add your Firebase web-app credentials and keep `.env` out of version control.
 
 Use Firebase Authentication in your Firestore rules so only signed-in users can access data, and restrict chat reads/writes to each chat’s members. Validate `readBy` updates so users can only add their own UID.
 
-## 🖼️ Screenshots
-
-Add screenshots here to showcase the chat list, active conversation, profile screen, and responsive mobile layout.
-
-```text
-docs/screenshots/chat-list.png
-docs/screenshots/chat-window.png
-docs/screenshots/mobile-view.png
-```
-
 ## 📸 Screenshots
 
 ### 🔐 Login Screen
