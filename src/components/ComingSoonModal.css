@@ -1,0 +1,8 @@
+.coming-soon-backdrop { position: fixed; inset: 0; z-index: 1000; display: grid; place-items: center; padding: 20px; background: rgba(15, 23, 42, .52); }
+.coming-soon-modal { position: relative; width: min(380px, 100%); box-sizing: border-box; padding: 32px; border-radius: 18px; background: #fff; color: #1f2937; text-align: center; box-shadow: 0 24px 60px rgba(0, 0, 0, .28); }
+.coming-soon-icon { display: grid; place-items: center; width: 48px; height: 48px; margin: 0 auto 12px; border-radius: 14px; background: #e8f3f1; color: #2f6f62; font-size: 24px; }
+.coming-soon-eyebrow { margin: 0; color: #2f6f62; font-size: 12px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; }
+.coming-soon-modal h2 { margin: 7px 0 9px; font-size: 22px; }
+.coming-soon-modal p:not(.coming-soon-eyebrow) { margin: 0 0 24px; color: #64748b; line-height: 1.5; }
+.coming-soon-close { position: absolute; top: 10px; right: 13px; border: 0; background: transparent; color: #64748b; cursor: pointer; font-size: 26px; }
+.coming-soon-confirm { border: 0; border-radius: 9px; padding: 10px 24px; background: #2f6f62; color: #fff; cursor: pointer; font-weight: 600; }

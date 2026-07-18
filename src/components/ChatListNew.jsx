@@ -20,7 +20,7 @@ import { useNavigate } from "react-router-dom";
 
 
 /*  Single Chat Row */
-const ChatUserItem = ({ chat, currentUserId, onSelectChat,activeChat }) => {
+const ChatUserItem = ({ chat, currentUserId, isGuest, onSelectChat,activeChat }) => {
   const [otherUser, setOtherUser] = useState(null);
 
 const isActive = activeChat === chat.id;
@@ -28,8 +28,7 @@ const isActive = activeChat === chat.id;
 const isUnread =
   chat.lastSenderId &&
   chat.lastSenderId !== currentUserId &&
-  !chat.readBy?.includes(currentUserId) &&
-  !isActive;
+  !chat.readBy?.includes(currentUserId);
 
   useEffect(() => {
     const otherUserId = chat.members.find(
@@ -56,15 +55,16 @@ const isUnread =
 onClick={async () => { // mark as read on click
   onSelectChat(chat.id);
 
-  // 🟡 guest → no Firestore write
-  if (!currentUserId) return;
+  // Guests never write read receipts. Already-read and own-message chats
+  // also need no additional write.
+  if (isGuest || !currentUserId || !isUnread) return;
 
   try {
     await updateDoc(doc(db, "chats", chat.id), {
       readBy: arrayUnion(currentUserId),
     });
   } catch (e) {
-    console.warn("Guest read update skipped");
+    console.error("Could not mark chat as read", e);
   }
 }}
 >
@@ -203,6 +203,7 @@ const [showLoginHint, setShowLoginHint] = useState(false);
           key={chat.id}
           chat={chat}
           currentUserId={user.uid}
+          isGuest={user.isGuest === true}
             activeChat={activeChat}
           onSelectChat={onSelectChat}
         />

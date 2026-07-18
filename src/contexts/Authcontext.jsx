@@ -12,6 +12,7 @@ export const AuthProvider = ({ children }) => {
     //Firebase listener
     const unsub = auth.onAuthStateChanged(async (u) => {
     if (u) {
+  localStorage.removeItem("guestUser");
   const snap = await getDoc(doc(db, "users", u.uid));
 
   const userData = snap.exists() ? snap.data() : {};
@@ -25,6 +26,8 @@ const finalUser = {
     u.displayName ||
     u.email?.split("@")[0],
   ...userData,
+  // A Firebase-authenticated account is never a local guest session.
+  isGuest: false,
 };
 
 setUser(finalUser);

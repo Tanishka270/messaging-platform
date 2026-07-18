@@ -290,6 +290,19 @@ background:
   backdrop-filter: none !important;
 }
 
+.profile-placeholder-section {
+  margin-top: 6px;
+  padding: 16px;
+  border: 1px solid #dbe7e5;
+  border-radius: 12px;
+  background: #f8fbfa;
+}
+
+.profile-placeholder-section h3 { margin: 0 0 8px; color: #2f6f62; font-size: 15px; }
+.profile-placeholder-section button { display: flex; width: 100%; align-items: center; justify-content: space-between; padding: 10px 0; border: 0; border-bottom: 1px solid #e5eeec; background: transparent; color: #334155; cursor: pointer; text-align: left; }
+.profile-placeholder-section button:last-child { border-bottom: 0; }
+.profile-placeholder-section small { color: #2f6f62; font-size: 10px; font-weight: 700; text-transform: uppercase; }
+
 /* ================= RESPONSIVE ================= */
 
 /* -------- Mobile (≤ 768px) -------- */

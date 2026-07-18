@@ -6,6 +6,7 @@ import "./Profile.css";
 import { useNavigate } from "react-router-dom";
 import { signInWithPopup } from "firebase/auth";
 import { auth, googleProvider } from "./firebase";
+import ComingSoonModal from "./ComingSoonModal";
 
 
 
@@ -23,6 +24,7 @@ const Profile = ({ profileUser, onBack }) => {
   const navigate = useNavigate();
  const [error, setError] = useState("");
  const [showGuestOverlay, setShowGuestOverlay] = useState(false); 
+ const [comingSoon, setComingSoon] = useState(null);
 
 
 
@@ -234,6 +236,21 @@ if (user?.isGuest && !profileUser) {
 )}
 
           {!isReadOnly && (
+            <section className="profile-placeholder-section" aria-label="Planned account features">
+              <h3>Account & privacy</h3>
+              <button type="button" onClick={() => setComingSoon({ feature: "Linked Devices", description: "Use your account across additional devices. Device linking is not implemented yet." })}>
+                <span>Linked Devices</span><small>Coming Soon</small>
+              </button>
+              <button type="button" onClick={() => setComingSoon({ feature: "Chat Backup & Restore", description: "Save and recover your chat history. Backup and restore are not implemented yet." })}>
+                <span>Chat Backup & Restore</span><small>Coming Soon</small>
+              </button>
+              <button type="button" onClick={() => setComingSoon({ feature: "End-to-End Encryption", description: "End-to-end encryption is not implemented in this project. This informational placeholder does not indicate that messages are encrypted." })}>
+                <span>End-to-End Encryption</span><small>Information</small>
+              </button>
+            </section>
+          )}
+
+          {!isReadOnly && (
   <button
     className="profile-save-btn"
     onClick={saveProfile}
@@ -246,6 +263,13 @@ if (user?.isGuest && !profileUser) {
         </div>
       </div>
     </div>
+    {comingSoon && (
+      <ComingSoonModal
+        feature={comingSoon.feature}
+        description={comingSoon.description}
+        onClose={() => setComingSoon(null)}
+      />
+    )}
     </>
   );
 };

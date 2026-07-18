@@ -24,6 +24,20 @@ import { isProfileComplete } from "../utilities/profilestatus";
 import { getDoc } from "firebase/firestore";
 import Profile from "./Profile";
 import SidebarProfileButton from "./SidebarProfileButton";
+import ComingSoonModal from "./ComingSoonModal";
+import {
+  Archive,
+  BookOpen,
+  CalendarDays,
+  CheckCheck,
+  MessageCircle,
+  Phone,
+  Pin,
+  Search,
+  SmilePlus,
+  Trash2,
+  Video,
+} from "lucide-react";
 
 
 
@@ -44,9 +58,13 @@ const [showMsgMenu, setShowMsgMenu] = useState(false);// to show/hide message me
 const [showLoginPrompt, setShowLoginPrompt] = useState(false);
 const [showProfile, setShowProfile] = useState(false); // to show/hide profile
 const [chatUser, setChatUser] = useState(null);  
+const [comingSoon, setComingSoon] = useState(null);
 
 
   const bottomRef = useRef(null);
+
+  // This state is used only by placeholder UI and is independent of chat data.
+  const showComingSoon = (feature, description) => setComingSoon({ feature, description });
 
 
 //reply to 
@@ -235,6 +253,24 @@ useEffect(() => { // chat change pe reply cancel
 
   return (
    <div className={`chat-layout ${activeChat ? "chat-open" : ""}`}>
+      <aside className="placeholder-feature-rail" aria-label="Planned features">
+        <button type="button" aria-label="Stories and Status" data-tooltip="Stories / Status" onClick={() => showComingSoon("Stories / Status", "Share short updates with your contacts. Creating and viewing stories is not implemented yet.")}>
+          <BookOpen size={21} />
+        </button>
+        <button type="button" aria-label="Archived Chats" data-tooltip="Archived Chats" onClick={() => showComingSoon("Archived Chats", "Keep conversations out of the main list without deleting them. Chat archiving is not implemented yet.")}>
+          <Archive size={21} />
+        </button>
+        <span className="placeholder-rail-divider" />
+        <button type="button" aria-label="Scheduled Messages" data-tooltip="Scheduled Messages" onClick={() => showComingSoon("Scheduled Messages", "Choose a time for a message to send automatically. Scheduling is not implemented yet.")}>
+          <CalendarDays size={21} />
+        </button>
+        <button type="button" aria-label="Typing Indicators" data-tooltip="Typing Indicators" onClick={() => showComingSoon("Typing Indicators", "See when someone is composing a message. Typing indicators are not implemented yet.")}>
+          <MessageCircle size={21} />
+        </button>
+        <button type="button" aria-label="Read Receipts" data-tooltip="Read Receipts" onClick={() => showComingSoon("Read Receipts", "See when messages have been read. Read receipts are not implemented yet.")}>
+          <CheckCheck size={21} />
+        </button>
+      </aside>
       {/* LEFT SIDEBAR */}
       <div className="sidebar">
         <div className="sidebar-scroll">
@@ -330,12 +366,12 @@ useEffect(() => { // chat change pe reply cancel
   </span>
 )}
 
-  <button
-    className="delete-chat-btn"
-    onClick={deleteCurrentChat}
-  >
-    🗑️ Delete Chat
-  </button>
+  <div className="chat-header-actions" aria-label="Chat actions">
+    <button type="button" aria-label="Voice Calling" data-tooltip="Voice Calling" onClick={() => showComingSoon("Voice Calling", "Start an audio conversation directly from this chat. Voice calling is not implemented yet.")}><Phone size={20} /></button>
+    <button type="button" aria-label="Video Calling" data-tooltip="Video Calling" onClick={() => showComingSoon("Video Calling", "Meet face-to-face without leaving the conversation. Video calling is not implemented yet.")}><Video size={20} /></button>
+    <button type="button" aria-label="Message Search" data-tooltip="Message Search" onClick={() => showComingSoon("Message Search", "Find messages within this conversation. Message search is not implemented yet.")}><Search size={20} /></button>
+    <button type="button" className="delete-chat-btn" aria-label="Delete Chat" data-tooltip="Delete Chat" onClick={deleteCurrentChat}><Trash2 size={20} /></button>
+  </div>
 </div>
 
 
@@ -435,6 +471,24 @@ useEffect(() => { // chat change pe reply cancel
       }}
     >
       Delete
+    </button>
+    <button
+      type="button"
+      onClick={() => {
+        setShowMsgMenu(false);
+        showComingSoon("Message Reactions", "React to a message with an emoji. Message reactions are not implemented yet.");
+      }}
+    >
+      <SmilePlus size={18} aria-label="Message Reactions" />
+    </button>
+    <button
+      type="button"
+      onClick={() => {
+        setShowMsgMenu(false);
+        showComingSoon("Pinned Messages", "Keep important messages easy to find at the top of a conversation. Pinning is not implemented yet.");
+      }}
+    >
+      <Pin size={18} aria-label="Pinned Messages" />
     </button>
 
    </div>
@@ -571,6 +625,13 @@ useEffect(() => { // chat change pe reply cancel
     <h2>It's nice to chat with someone</h2>
     <p>start your conversation</p>
   </div>
+)}
+{comingSoon && (
+  <ComingSoonModal
+    feature={comingSoon.feature}
+    description={comingSoon.description}
+    onClose={() => setComingSoon(null)}
+  />
 )}
       </div>
     </div>
