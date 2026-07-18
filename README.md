@@ -1,5 +1,5 @@
 # Messaging Platform 💬
- [Messaging Platform 💬](messaging-platform123.netlify.app) 
+ [Messaging Platform 💬](https://messaging-platform123.netlify.app) 
 
 [![React](https://img.shields.io/badge/React-19-61DAFB?logo=react&logoColor=white)](https://react.dev/)
 [![Firebase](https://img.shields.io/badge/Firebase-Authentication%20%26%20Firestore-FFCA28?logo=firebase&logoColor=black)](https://firebase.google.com/)
