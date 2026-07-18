@@ -1,28 +1,28 @@
 import React from "react";
-import { GoogleOutlined, FacebookOutlined } from "@ant-design/icons";
-import { signInWithPopup } from "firebase/auth";
-import { auth, googleProvider, facebookProvider } from "./firebase";
+import { GoogleOutlined } from "@ant-design/icons";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "../contexts/Authcontext";
 
 const Login = () => {
-  const navigate = useNavigate(); 
+  const navigate = useNavigate();
+  const { loginWithGoogle: signInWithGoogle, startGuestSession } = useAuth();
 
 
   //This function logs the user in using Google, and after a successful login, redirects them to the /chats page.
   const loginWithGoogle = async () => {
-    await signInWithPopup(auth, googleProvider);
-    navigate("/chats"); 
+    await signInWithGoogle();
+    navigate("/chats");
   };
 
-  const handleGuestLogin = () => {
+  const handleGuestLogin = async () => {
   const guestUser = {
     uid: "guest_" + Date.now(), // unique id for guest
     displayName: "Guest User",
     isGuest: true,
   };
 
-  // save guest user info in local storage
-  localStorage.setItem("guestUser", JSON.stringify(guestUser));
+  // Save the guest user and update AuthContext before navigation.
+  await startGuestSession(guestUser);
 
   // Redirect to chats page
   navigate("/chats");
