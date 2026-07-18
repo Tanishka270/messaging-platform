@@ -89,6 +89,23 @@ docs/screenshots/chat-window.png
 docs/screenshots/mobile-view.png
 ```
 
+## 📸 Screenshots
+
+### 🔐 Login Screen
+![Login](screenshots/login.png)
+
+### 👤 Profile Screen
+![Profile](screenshots/profile.png)
+
+### 💬 Chat Window
+![NewChat Window](screenshots/newchat.png)
+![Chat Window](screenshots/chat.png)
+
+### 📱 Mobile View
+![Mobile View](screenshots/responsive.png)
+
+
+
 ## 🌱 Future Enhancements
 
 - Production implementations for calling, stories, archived chats, scheduling, search, pins, and reactions
